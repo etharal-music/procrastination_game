@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
 
+#homework command
+
+
+
+
 #making the window
 window = tk.Tk()
 window.geometry ('300x150')
