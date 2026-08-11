@@ -33,12 +33,6 @@ def minigame():
 
 
 
-#making the window
-window = tk.Tk()
-window.geometry ('300x150')
-window.title("An Assingment")
-
-
 
 #title
 title = ttk.Label(master = window, text = "would you like to:")
