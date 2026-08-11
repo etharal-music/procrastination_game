@@ -5,7 +5,6 @@ from tkinter import ttk
 
 
 
-
 #making the window
 window = tk.Tk()
 window.geometry ('300x150')
