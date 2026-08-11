@@ -11,6 +11,8 @@ def homework():
         homework_window.geometry ('300x150')
         homework_window.title("homework")
         page_open += 1
+    else:
+        pass
         
 
 #homework page look
@@ -24,6 +26,8 @@ def minigame():
         minigame_window.geometry('300x150')
         minigame_window.title("minigame!")
         page_open += 1
+    else:
+        pass
 
 #minigame 1
 
