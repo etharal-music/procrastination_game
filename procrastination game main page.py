@@ -15,24 +15,28 @@ def homework():
         pass
         
 
-#homework page look
-title = ttk.Label()
-    
 
 #minigame command
 def minigame():
-    if page_open == 0:
+    #if page_open == 0:
+
         minigame_window = tk.Tk()
         minigame_window.geometry('300x150')
         minigame_window.title("minigame!")
         page_open += 1
-    else:
-        pass
+        #this is the checkbox minigame
+        checkbox_1 = ttk.Checkbutton(master = minigame_window)
+        checkbox_1.pack()
+    
+    #else:
+        #pass
 
 #minigame 1
 
 
-
+window = tk.Tk()
+window.geometry('300x150')
+window.title("An Assingment")
 
 #title
 title = ttk.Label(master = window, text = "would you like to:")
