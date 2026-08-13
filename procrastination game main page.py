@@ -24,29 +24,29 @@ def homework():
     global homework_done
     global page_open
     if page_open == 0:
-        print("cheese")
         homework_window = tk.Tk()
         homework_window.geometry ('300x150')
         homework_window.title("homework")
         page_open += 1
         window.withdraw()
-        print('cheese')
         #homework progress bar
         Progress_bar = ttk.Progressbar( master = homework_window, length = 200)
-        print('cheese')
         Progress_bar["value"] = 0
         Progress_bar.pack(pady = 20)
-        current_value = Progress_bar['value']
         def load_bar():
-            print(current_value)
+            global homework_done
+            global page_open
+            print(Progress_bar['value'])
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(50, load_bar)
+                homework_window.after(500, load_bar)
             else:
+                homework_done += 10
+                page_open -= 1
                 homework_window.withdraw()
                 window.deiconify()
-                page_open -= 1
+
         load_bar()
 
 
