@@ -62,11 +62,60 @@ def homework():
 def minigame():
     global page_open
     if page_open == 0:
+        #first minigame!
         minigame_1_window = tk.Tk()
         minigame_1_window.geometry('300x150')
         minigame_1_window.title("minigame!")
+        minigame_1_done = False
+        checkboxes_clicked = 0
         page_open += 1
         window.withdraw()
+        tickbox_bar = tk.BooleanVar()
+        tickbox_bar2= tk.BooleanVar()
+        tickbox_bar3= tk.BooleanVar()
+        tickbox_bar4= tk.BooleanVar()
+        tickbox_bar5= tk.BooleanVar()
+        tickbox_bar6= tk.BooleanVar()
+        tickbox_bar7= tk.BooleanVar()
+        tickbox_bar8= tk.BooleanVar()
+        tickbox_bar9= tk.BooleanVar()
+        tickbox_bar10= tk.BooleanVar()
+        tickbox_bar11= tk.BooleanVar()
+        tickbox_bar12= tk.BooleanVar()
+
+        #minigame 1 is a bunck of check boxes you have to check
+        minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
+        minigame_label.pack()
+        checkbox_1 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar)
+        checkbox_1.pack()
+        checkbox_2 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar2)
+        checkbox_2.pack(side = 'left')
+        checkbox_3 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar3)
+        checkbox_3.pack(side = 'right')
+        checkbox_4 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar4)
+        checkbox_4.pack()
+        checkbox_5 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar5)
+        checkbox_5.pack(side= 'left')
+        checkbox_6 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar6)
+        checkbox_6.pack(side = 'right')
+        checkbox_7 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar7)
+        checkbox_7.pack()
+        checkbox_8 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar8)
+        checkbox_8.pack(side = 'left')
+        checkbox_9 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar9)
+        checkbox_9.pack(side = 'right')
+        checkbox_10 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar10)
+        checkbox_10.pack()
+        checkbox_11 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar11)
+        checkbox_11.pack(side = 'left')
+        checkbox_12 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar12)
+        checkbox_12.pack(side = 'right')
+
+        while minigame_1_done == False:
+            if tickbox_bar == True:
+                checkboxes_clicked +=1
+                print(checkboxes_clicked)
+
     
     else:
         pass
