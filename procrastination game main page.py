@@ -117,8 +117,7 @@ def minigame():
             global minigame_1_done
             if checkboxes_clicked < 10:
                 if tickbox_bar:
-                    checkboxes_clicked += 1
-                    print(checkboxes_clicked)
+                    checkboxes_clicked +=1
                     checkbox_check()
             else:
                 pass
