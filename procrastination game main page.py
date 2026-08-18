@@ -40,7 +40,7 @@ def homework():
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(9000, load_bar)
+                homework_window.after(500, load_bar)
             else:
                 homework_done += 10
                 page_open -= 1
@@ -61,6 +61,8 @@ def homework():
 #minigame command
 def minigame():
     global page_open
+    global minigame_1_done
+    global checkboxes_clicked
     if page_open == 0:
         #first minigame!
         minigame_1_window = tk.Tk()
@@ -110,11 +112,17 @@ def minigame():
         checkbox_11.pack(side = 'left')
         checkbox_12 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar12)
         checkbox_12.pack(side = 'right')
+        def checkbox_check():
+            global checkboxes_clicked
+            global minigame_1_done
+            if checkboxes_clicked < 10:
+                if tickbox_bar:
+                    checkboxes_clicked += 1
+                    print(checkboxes_clicked)
+                    checkbox_check()
+            else:
+                pass
 
-        while minigame_1_done == False:
-            if tickbox_bar == True:
-                checkboxes_clicked +=1
-                print(checkboxes_clicked)
 
     
     else:
