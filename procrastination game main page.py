@@ -40,7 +40,7 @@ def homework():
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(500, load_bar)
+                homework_window.after(9000, load_bar)
             else:
                 homework_done += 10
                 page_open -= 1
