@@ -69,6 +69,9 @@ def homework():
         
 
 
+#testings
+
+
 #minigame command
 def minigame():
     global time_until_homework
