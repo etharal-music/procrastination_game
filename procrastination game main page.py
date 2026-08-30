@@ -9,8 +9,11 @@ import time
 ############
 
 
-
+###########
+#this variable checks if a page is open, if so it will add one and stop any other page from
+#being opened
 page_open = 0
+###########
 
 ###########
 #this is the percentage of the homework being done
@@ -46,10 +49,10 @@ def homework():
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(500, load_bar)
+                homework_window.after(50, load_bar)
             else:
-            #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess, respawn main window aswell as delete this one and make the homework
-            #10 % done
+            #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess,
+            #respawn main window aswell as delete this one and make the homework 10 % done
                 homework_done += 10
                 page_open -= 1
                 time_until_homework -= 6
@@ -57,20 +60,11 @@ def homework():
                 window.deiconify()
                 thing()
                 
-
         load_bar()
-
-
-        
-    
 
     else:
         pass
         
-
-
-#testings
-
 
 #minigame command
 def minigame():
@@ -78,6 +72,19 @@ def minigame():
     global page_open
     global minigame_1_done
     global checkboxes_clicked
+
+    my_booleans = []
+    my_checkboxes = []
+
+    def my_checkbox_clicked(i):
+        global minigame_1_done
+        global checkboxes_clicked
+        checkboxes_clicked = 0
+        if my_booleans[i] == True:
+            print("true")
+        else:
+            print("false")
+
     if page_open == 0:
         #first minigame!
         minigame_1_window = tk.Tk()
@@ -87,57 +94,30 @@ def minigame():
         checkboxes_clicked = 0
         page_open += 1
         window.withdraw()
-        tickbox_bar = tk.BooleanVar()
-        tickbox_bar2= tk.BooleanVar()
-        tickbox_bar3= tk.BooleanVar()
-        tickbox_bar4= tk.BooleanVar()
-        tickbox_bar5= tk.BooleanVar()
-        tickbox_bar6= tk.BooleanVar()
-        tickbox_bar7= tk.BooleanVar()
-        tickbox_bar8= tk.BooleanVar()
-        tickbox_bar9= tk.BooleanVar()
-        tickbox_bar10= tk.BooleanVar()
-        tickbox_bar11= tk.BooleanVar()
-        tickbox_bar12= tk.BooleanVar()
+
+        for i in range(12):
+            my_booleans.append(tk.BooleanVar)
+
 
         #minigame 1 is a bunck of check boxes you have to check
         minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
         minigame_label.pack()
-        checkbox_1 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar)
-        checkbox_1.pack()
-        checkbox_2 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar2)
-        checkbox_2.pack(side = 'left')
-        checkbox_3 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar3)
-        checkbox_3.pack(side = 'right')
-        checkbox_4 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar4)
-        checkbox_4.pack()
-        checkbox_5 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar5)
-        checkbox_5.pack(side= 'left')
-        checkbox_6 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar6)
-        checkbox_6.pack(side = 'right')
-        checkbox_7 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar7)
-        checkbox_7.pack()
-        checkbox_8 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar8)
-        checkbox_8.pack(side = 'left')
-        checkbox_9 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar9)
-        checkbox_9.pack(side = 'right')
-        checkbox_10 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar10)
-        checkbox_10.pack()
-        checkbox_11 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar11)
-        checkbox_11.pack(side = 'left')
-        checkbox_12 = ttk.Checkbutton(master = minigame_1_window, variable = tickbox_bar12)
-        checkbox_12.pack(side = 'right')
-        def checkbox_check():
-            global time_until_homework
-            global checkboxes_clicked
-            global minigame_1_done
-            if checkboxes_clicked < 10:
-                if tickbox_bar:
-                    checkboxes_clicked +=1
-                    checkbox_check()
-            else:
-                pass
 
+        pack_side = 0
+
+        for i in range(12):
+            my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i)
+)
+            if pack_side == 0:
+                my_checkbox.pack()
+                pack_side += 1
+            elif pack_side == 1:
+                my_checkbox.pack(side = 'left')
+                pack_side += 1
+            else:
+                my_checkbox.pack(side = 'right')
+                pack_side = 0
+            my_checkboxes.append(my_checkbox)
 
     
     else:
@@ -153,11 +133,11 @@ window.title("An Assingment")
 
 
 #label to tell the user how long until the homework is due
+time_until_homework_label = ttk.Label(master = window, text = "")
+time_until_homework_label.pack()
 
 def thing():
-    time_until_homework_label = ttk.Label(master = window, text = time_until_homework)
-    time_until_homework_label.pack_forget()
-    time_until_homework_label.pack()
+    time_until_homework_label["text"] = time_until_homework
 thing()
 
 
