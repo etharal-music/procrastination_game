@@ -30,7 +30,7 @@ def homework():
     global time_until_homework
     #this check if there is another page open, if so it does not allow another to open
     if page_open == 0:
-        homework_window = tk.Tk()
+        homework_window = tk.Toplevel()
         homework_window.geometry ('300x150')
         homework_window.title("homework")
         page_open += 1
@@ -79,15 +79,30 @@ def minigame():
     def my_checkbox_clicked(i):
         global minigame_1_done
         global checkboxes_clicked
-        checkboxes_clicked = 0
-        if my_booleans[i] == True:
-            print("true")
+
+        if my_booleans[i].get() == True:
+            checkboxes_clicked += 1
         else:
-            print("false")
+            checkboxes_clicked -= 1
+        print(checkboxes_clicked)
+
+
+        if checkboxes_clicked != 12:
+                        print("hi")
+                        pass
+        
+        else:
+                        print("bye")
+                        minigame_1_done == True
+                        page_open -= 1
+                        time_until_homework -= 6
+                        minigame_1_window.withdraw()
+                        window.deiconify()
+                        thing()
 
     if page_open == 0:
         #first minigame!
-        minigame_1_window = tk.Tk()
+        minigame_1_window = tk.Toplevel()
         minigame_1_window.geometry('300x150')
         minigame_1_window.title("minigame!")
         minigame_1_done = False
@@ -96,7 +111,7 @@ def minigame():
         window.withdraw()
 
         for i in range(12):
-            my_booleans.append(tk.BooleanVar)
+            my_booleans.append(tk.BooleanVar())
 
 
         #minigame 1 is a bunck of check boxes you have to check
@@ -106,8 +121,7 @@ def minigame():
         pack_side = 0
 
         for i in range(12):
-            my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i)
-)
+            my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i))
             if pack_side == 0:
                 my_checkbox.pack()
                 pack_side += 1
@@ -118,6 +132,8 @@ def minigame():
                 my_checkbox.pack(side = 'right')
                 pack_side = 0
             my_checkboxes.append(my_checkbox)
+
+        
 
     
     else:
