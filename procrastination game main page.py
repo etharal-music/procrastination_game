@@ -20,7 +20,7 @@ page_open = 0
 homework_done = 0
 ###########
 
-time_until_homework = 72
+time_until_homework = 84
 
 #homework command
 
@@ -49,7 +49,7 @@ def homework():
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(50, load_bar)
+                homework_window.after(600, load_bar)
             else:
             #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess,
             #respawn main window aswell as delete this one and make the homework 10 % done
@@ -59,6 +59,13 @@ def homework():
                 homework_window.withdraw()
                 window.deiconify()
                 thing()
+                homework_left()
+                if homework_done >= 100:
+                    ending()
+                elif time_until_homework <= 0:
+                    ending()
+                else:
+                    pass
                 
         load_bar()
 
@@ -69,6 +76,7 @@ def homework():
 #minigame command
 def minigame():
     global time_until_homework
+    global homework_done
     global page_open
     global minigame_1_done
     global checkboxes_clicked
@@ -79,6 +87,8 @@ def minigame():
     def my_checkbox_clicked(i):
         global minigame_1_done
         global checkboxes_clicked
+        global page_open
+        global time_until_homework
 
         if my_booleans[i].get() == True:
             checkboxes_clicked += 1
@@ -88,17 +98,19 @@ def minigame():
 
 
         if checkboxes_clicked != 12:
-                        print("hi")
-                        pass
+            print("hi")
+            pass
         
         else:
-                        print("bye")
-                        minigame_1_done == True
-                        page_open -= 1
-                        time_until_homework -= 6
-                        minigame_1_window.withdraw()
-                        window.deiconify()
-                        thing()
+            print("bye")
+            minigame_1_done == True
+            page_open -= 1
+            time_until_homework -= 6
+            minigame_1_window.withdraw()
+            window.deiconify()
+            thing()
+            if time_until_homework <= 0:
+                ending()
 
     if page_open == 0:
         #first minigame!
@@ -109,6 +121,7 @@ def minigame():
         checkboxes_clicked = 0
         page_open += 1
         window.withdraw()
+        
 
         for i in range(12):
             my_booleans.append(tk.BooleanVar())
@@ -152,10 +165,17 @@ window.title("An Assingment")
 time_until_homework_label = ttk.Label(master = window, text = "")
 time_until_homework_label.pack()
 
+#label to say how much of the homeowork is complete
+homework_percentage = ttk.Label(master = window, text = "")
+homework_percentage.pack()
+
 def thing():
     time_until_homework_label["text"] = time_until_homework
 thing()
 
+def homework_left():
+    homework_percentage["text"] = homework_done
+homework_left()
 
 #title
 title = ttk.Label(master = window, text = "would you like to:")
@@ -174,7 +194,9 @@ homework_button.pack(side = 'left', padx= '20', pady = '30')
 minigame_button = ttk.Button(master = button_area, text = "minigame!", command = minigame)
 minigame_button.pack(side = 'left', padx= '20', pady = '30')
 
-
+def ending():
+    print("end")
+    pass
 
 #run the window
 window.mainloop()
