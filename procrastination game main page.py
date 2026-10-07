@@ -49,7 +49,7 @@ def homework():
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(600, load_bar)
+                homework_window.after(1, load_bar)
             else:
             #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess,
             #respawn main window aswell as delete this one and make the homework 10 % done
@@ -195,7 +195,33 @@ minigame_button = ttk.Button(master = button_area, text = "minigame!", command =
 minigame_button.pack(side = 'left', padx= '20', pady = '30')
 
 def ending():
+    global window
+    global minigame_1_done
+    global checkboxes_clicked
+    global page_open
+    global time_until_homework
     print("end")
+    
+
+    if homework_done == 100 and time_until_homework >= 0 and time_until_homework <= 23:
+        print('nuetral')
+        nuetral_title = ttk.Label(text = "neutral")
+        nuetral_title.pack
+    elif homework_done == 100 and time_until_homework == 24:
+        print('good')
+        good_title = ttk.Label(text = "good")
+        good_title.pack
+    else:
+        bad_title = ttk.Label(text = "bad")
+        bad_title.pack
+        print("bad")
+
+
+    end_window = tk.Toplevel()
+    end_window.geometry('300x150')
+    end_window.title("ending")
+    page_open += 1
+    window.withdraw()
     pass
 
 #run the window
