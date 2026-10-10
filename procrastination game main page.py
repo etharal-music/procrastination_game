@@ -58,7 +58,7 @@ def homework():
                 time_until_homework -= 6
                 homework_window.withdraw()
                 window.deiconify()
-                thing()
+                update_time()
                 homework_left()
                 if homework_done >= 100:
                     ending()
@@ -108,7 +108,7 @@ def minigame():
             time_until_homework -= 6
             minigame_1_window.withdraw()
             window.deiconify()
-            thing()
+            update_time()
             if time_until_homework <= 0:
                 ending()
 
@@ -169,9 +169,9 @@ time_until_homework_label.pack()
 homework_percentage = ttk.Label(master = window, text = "")
 homework_percentage.pack()
 
-def thing():
+def update_time():
     time_until_homework_label["text"] = time_until_homework
-thing()
+update_time()
 
 def homework_left():
     homework_percentage["text"] = homework_done
@@ -201,27 +201,25 @@ def ending():
     global page_open
     global time_until_homework
     print("end")
-    
-
-    if homework_done == 100 and time_until_homework >= 0 and time_until_homework <= 23:
-        print('nuetral')
-        nuetral_title = ttk.Label(text = "neutral")
-        nuetral_title.pack
-    elif homework_done == 100 and time_until_homework == 24:
-        print('good')
-        good_title = ttk.Label(text = "good")
-        good_title.pack
-    else:
-        bad_title = ttk.Label(text = "bad")
-        bad_title.pack
-        print("bad")
-
-
     end_window = tk.Toplevel()
     end_window.geometry('300x150')
     end_window.title("ending")
     page_open += 1
     window.withdraw()
+
+    if homework_done == 100 and time_until_homework >= 0 and time_until_homework <= 23:
+        print('nuetral')
+        nuetral_title = ttk.Label(text = "neutral", master = end_window)
+        nuetral_title.pack()
+    elif homework_done == 100 and time_until_homework == 24:
+        print('good')
+        good_title = ttk.Label(text = "good", master = end_window)
+        good_title.pack()
+    else:
+        bad_title = ttk.Label(text = "bad", master = end_window)
+        bad_title.pack()
+        print("bad")
+        
     pass
 
 #run the window
