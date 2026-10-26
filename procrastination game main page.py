@@ -9,6 +9,11 @@ import time
 ############
 
 
+homework_button_width = 11
+
+
+load_time = 200
+
 ###########
 #this variable checks if a page is open, if so it will add one and stop any other page from
 #being opened
@@ -28,6 +33,7 @@ time_until_homework = 84
 def homework():
     global homework_done
     global page_open
+    global load_time
     global time_until_homework
     #this check if there is another page open, if so it does not allow another to open
     if page_open == 0:
@@ -44,13 +50,14 @@ def homework():
         def load_bar():
             global homework_done
             global page_open
+            global load_time
             global time_until_homework
             print(Progress_bar['value'])
             #if the progres bar is not complete: add one to it and wait a second
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
-                homework_window.after(1, load_bar)
+                homework_window.after(load_time, load_bar)
             else:
             #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess,
             #respawn main window aswell as delete this one and make the homework 10 % done
@@ -59,6 +66,7 @@ def homework():
                 time_until_homework -= 6
                 homework_window.withdraw()
                 window.deiconify()
+                load_time -= 30
                 update_time()
                 homework_left()
                 if homework_done >= 100:
@@ -86,6 +94,7 @@ def minigame():
     my_checkboxes = []
 
     def my_checkbox_clicked(i):
+        global homework_button_width
         global minigame_1_done
         global checkboxes_clicked
         global page_open
@@ -109,6 +118,7 @@ def minigame():
             time_until_homework -= 6
             minigame_1_window.withdraw()
             window.deiconify()
+            homework_button_size()
             update_time()
             if time_until_homework <= 0:
                 ending()
@@ -118,12 +128,15 @@ def minigame():
         if my_booleans[i].get() == False:
             my_booleans[i].set(True)
             checkboxes_clicked += 1
+            print("x")
             print(checkboxes_clicked)
+            print("x")
         else:
             my_booleans[i].set(False)
             checkboxes_clicked -= 1
 
     def checkbox_randomizer(i):
+        global homework_button_width
         if i == 1:
             checkbox_toggle(5)
             checkbox_toggle(10)
@@ -170,13 +183,14 @@ def minigame():
             time_until_homework -= 6
             minigame_2_window.withdraw()
             window.deiconify()
+            homework_button_width -= 3
             update_time()
             if time_until_homework <= 0:
                 ending()
 
    
 
-    """ if page_open == 0:
+    if page_open == 0:
         #first minigame!
         minigame_1_window = tk.Toplevel()
         minigame_1_window.geometry('300x150')
@@ -208,45 +222,45 @@ def minigame():
             else:
                 my_checkbox.pack(side = 'right')
                 pack_side = 0
-            my_checkboxes.append(my_checkbox)"""
-
-        
-
-    
-    
-
-
-    if page_open == 0:
-    #second minigame!
-        minigame_2_window = tk.Toplevel()
-        minigame_2_window.geometry('300x150')
-        minigame_2_window.title("minigame!")
-        minigame_2_done = False
-        checkboxes_clicked = 0
-        page_open += 1
-        window.withdraw()
-        
-
-        for i in range(12):
-            my_booleans.append(tk.BooleanVar())
-
-
-        #minigame 1 is a bunck of check boxes you have to check
-        minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
-          (good luck)""")
-        minigame_label_2.pack()
-
-        pack_side = 0
-
-        for i in range(12):
-            my_checkbox = ttk.Checkbutton(master = minigame_2_window, variable = my_booleans[i], command = lambda i=i: checkbox_randomizer(i))
-            if pack_side == 0:
-                my_checkbox.pack(side = 'left')
-                pack_side += 1
-            else:
-                my_checkbox.pack(side = 'right')
-                pack_side = 0
             my_checkboxes.append(my_checkbox)
+
+        
+
+    
+    
+
+
+    # if page_open == 0:
+    # #second minigame!
+    #     minigame_2_window = tk.Toplevel()
+    #     minigame_2_window.geometry('300x150')
+    #     minigame_2_window.title("minigame!")
+    #     minigame_2_done = False
+    #     checkboxes_clicked = 0
+    #     page_open += 1
+    #     window.withdraw()
+        
+
+    #     for i in range(12):
+    #         my_booleans.append(tk.BooleanVar())
+
+
+    #     #minigame 1 is a bunck of check boxes you have to check
+    #     minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
+    #     (good luck)""")
+    #     minigame_label_2.pack()
+
+    #     pack_side = 0
+
+    #     for i in range(12):
+    #         my_checkbox = ttk.Checkbutton(master = minigame_2_window, variable = my_booleans[i], command = lambda i=i: checkbox_randomizer(i))
+    #         if pack_side == 0:
+    #             my_checkbox.pack(side = 'left')
+    #             pack_side += 1
+    #         else:
+    #             my_checkbox.pack(side = 'right')
+    #             pack_side = 0
+    #         my_checkboxes.append(my_checkbox)
 
         
 
@@ -265,10 +279,16 @@ window = tk.Tk()
 window.geometry('300x150')
 window.title("An Assingment")
 
+time_until_homework_label_label = ttk.Label(master = window, text = "hours until homework due:")
+time_until_homework_label_label.pack()
 
 #label to tell the user how long until the homework is due
 time_until_homework_label = ttk.Label(master = window, text = "")
 time_until_homework_label.pack()
+
+
+homework_percentage_label = ttk.Label(master = window, text = "percentage of homework done:")
+homework_percentage_label.pack()
 
 #label to say how much of the homeowork is complete
 homework_percentage = ttk.Label(master = window, text = "")
@@ -292,12 +312,17 @@ button_area = ttk.Frame(master=window)
 button_area.pack()
 
 #the homework button
-homework_button = ttk.Button(master = button_area, text = "homework", command = homework)
-homework_button.pack(side = 'left', padx= '20', pady = '30')
+homework_button = ttk.Button(master = button_area, text = "homework", command = homework, width = homework_button_width)
+homework_button.pack(side = 'left', padx= '20')
+
+def homework_button_size():
+    homework_button["width"] -= 1
+homework_button_size()
+
 
 #the minigame button
 minigame_button = ttk.Button(master = button_area, text = "minigame!", command = minigame)
-minigame_button.pack(side = 'left', padx= '20', pady = '30')
+minigame_button.pack(side = 'left', padx= '20' )
 
 def ending():
     global window
