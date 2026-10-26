@@ -21,7 +21,7 @@ homework_done = 0
 ###########
 
 time_until_homework = 84
-time_until_homework_text = str(time_until_homework + "hi")
+
 
 #homework command
 
@@ -113,7 +113,70 @@ def minigame():
             if time_until_homework <= 0:
                 ending()
 
-    if page_open == 0:
+    def checkbox_toggle(i):
+        global checkboxes_clicked
+        if my_booleans[i].get() == False:
+            my_booleans[i].set(True)
+            checkboxes_clicked += 1
+            print(checkboxes_clicked)
+        else:
+            my_booleans[i].set(False)
+            checkboxes_clicked -= 1
+
+    def checkbox_randomizer(i):
+        if i == 1:
+            checkbox_toggle(5)
+            checkbox_toggle(10)
+        print(i)
+        if i == 2:
+            checkbox_toggle(6)
+            checkbox_toggle(10)
+        if i == 3:
+            checkbox_toggle(8)
+            checkbox_toggle(2)
+        if i == 4:
+            checkbox_toggle(11)
+            checkbox_toggle(7)
+        if i == 5:
+            checkbox_toggle(0)
+        if i == 6:
+            checkbox_toggle(1)
+            checkbox_toggle(9)
+        if i == 7:
+            checkbox_toggle(2)
+        if i == 8:
+            checkbox_toggle(0)
+            checkbox_toggle(3)
+        if i == 9:
+            checkbox_toggle(4)
+            checkbox_toggle(11)
+        if i == 10:
+            checkbox_toggle(7)
+        if i == 11:
+            checkbox_toggle(12)
+            checkbox_toggle(7)
+        if i == 12:
+            checkbox_toggle(11)
+            checkbox_toggle(8)
+
+        if checkboxes_clicked != 12:
+                    print("hi")
+                    pass
+                
+        else:
+            print("bye")
+            minigame_2_done == True
+            page_open -= 1
+            time_until_homework -= 6
+            minigame_2_window.withdraw()
+            window.deiconify()
+            update_time()
+            if time_until_homework <= 0:
+                ending()
+
+   
+
+    """ if page_open == 0:
         #first minigame!
         minigame_1_window = tk.Toplevel()
         minigame_1_window.geometry('300x150')
@@ -145,6 +208,44 @@ def minigame():
             else:
                 my_checkbox.pack(side = 'right')
                 pack_side = 0
+            my_checkboxes.append(my_checkbox)"""
+
+        
+
+    
+    
+
+
+    if page_open == 0:
+    #second minigame!
+        minigame_2_window = tk.Toplevel()
+        minigame_2_window.geometry('300x150')
+        minigame_2_window.title("minigame!")
+        minigame_2_done = False
+        checkboxes_clicked = 0
+        page_open += 1
+        window.withdraw()
+        
+
+        for i in range(12):
+            my_booleans.append(tk.BooleanVar())
+
+
+        #minigame 1 is a bunck of check boxes you have to check
+        minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
+          (good luck)""")
+        minigame_label_2.pack()
+
+        pack_side = 0
+
+        for i in range(12):
+            my_checkbox = ttk.Checkbutton(master = minigame_2_window, variable = my_booleans[i], command = lambda i=i: checkbox_randomizer(i))
+            if pack_side == 0:
+                my_checkbox.pack(side = 'left')
+                pack_side += 1
+            else:
+                my_checkbox.pack(side = 'right')
+                pack_side = 0
             my_checkboxes.append(my_checkbox)
 
         
@@ -152,6 +253,9 @@ def minigame():
     
     else:
         pass
+
+
+
 
 #minigame 1
 
@@ -171,7 +275,7 @@ homework_percentage = ttk.Label(master = window, text = "")
 homework_percentage.pack()
 
 def update_time():
-    time_until_homework_label["text"] = time_until_homework_text
+    time_until_homework_label["text"] = time_until_homework
 update_time()
 
 def homework_left():
