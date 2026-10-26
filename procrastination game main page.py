@@ -3,16 +3,30 @@ from tkinter import ttk
 
 
 
+minigame_2_done = False
+
+minigame_choice = ""
+
 ############
 #this is the time function allowing me to make the code wait
 import time
 ############
 
+############
+# this is a random function allowing me to randomize minigames.
+import random
+############
 
+
+############
+# this is a variable that changes the homework buttons size
 homework_button_width = 11
+############
 
-
+############
+# a variable decideing how long homework takes
 load_time = 200
+############
 
 ###########
 #this variable checks if a page is open, if so it will add one and stop any other page from
@@ -89,189 +103,204 @@ def minigame():
     global page_open
     global minigame_1_done
     global checkboxes_clicked
+    global minigame_choice
 
     my_booleans = []
     my_checkboxes = []
-
-    def my_checkbox_clicked(i):
-        global homework_button_width
-        global minigame_1_done
-        global checkboxes_clicked
-        global page_open
-        global time_until_homework
-
-        if my_booleans[i].get() == True:
-            checkboxes_clicked += 1
-        else:
-            checkboxes_clicked -= 1
-        print(checkboxes_clicked)
-
-
-        if checkboxes_clicked != 12:
-            print("hi")
-            pass
-        
-        else:
-            print("bye")
-            minigame_1_done == True
-            page_open -= 1
-            time_until_homework -= 6
-            minigame_1_window.withdraw()
-            window.deiconify()
-            homework_button_size()
-            update_time()
-            if time_until_homework <= 0:
-                ending()
-
-    def checkbox_toggle(i):
-        global checkboxes_clicked
-        if my_booleans[i].get() == False:
-            my_booleans[i].set(True)
-            checkboxes_clicked += 1
-            print("x")
-            print(checkboxes_clicked)
-            print("x")
-        else:
-            my_booleans[i].set(False)
-            checkboxes_clicked -= 1
-
-    def checkbox_randomizer(i):
-        global homework_button_width
-        if i == 1:
-            checkbox_toggle(5)
-            checkbox_toggle(10)
-        print(i)
-        if i == 2:
-            checkbox_toggle(6)
-            checkbox_toggle(10)
-        if i == 3:
-            checkbox_toggle(8)
-            checkbox_toggle(2)
-        if i == 4:
-            checkbox_toggle(11)
-            checkbox_toggle(7)
-        if i == 5:
-            checkbox_toggle(0)
-        if i == 6:
-            checkbox_toggle(1)
-            checkbox_toggle(9)
-        if i == 7:
-            checkbox_toggle(2)
-        if i == 8:
-            checkbox_toggle(0)
-            checkbox_toggle(3)
-        if i == 9:
-            checkbox_toggle(4)
-            checkbox_toggle(11)
-        if i == 10:
-            checkbox_toggle(7)
-        if i == 11:
-            checkbox_toggle(12)
-            checkbox_toggle(7)
-        if i == 12:
-            checkbox_toggle(11)
-            checkbox_toggle(8)
-
-        if checkboxes_clicked != 12:
-                    print("hi")
-                    pass
-                
-        else:
-            print("bye")
-            minigame_2_done == True
-            page_open -= 1
-            time_until_homework -= 6
-            minigame_2_window.withdraw()
-            window.deiconify()
-            homework_button_width -= 3
-            update_time()
-            if time_until_homework <= 0:
-                ending()
-
-   
-
     if page_open == 0:
-        #first minigame!
-        minigame_1_window = tk.Toplevel()
-        minigame_1_window.geometry('300x150')
-        minigame_1_window.title("minigame!")
-        minigame_1_done = False
-        checkboxes_clicked = 0
-        page_open += 1
-        window.withdraw()
-        
+        def my_checkbox_clicked(i):
+            global homework_button_width
+            global minigame_1_done
+            global checkboxes_clicked
+            global page_open
+            global time_until_homework
 
-        for i in range(12):
-            my_booleans.append(tk.BooleanVar())
-
-
-        #minigame 1 is a bunck of check boxes you have to check
-        minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
-        minigame_label.pack()
-
-        pack_side = 0
-
-        for i in range(12):
-            my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i))
-            if pack_side == 0:
-                my_checkbox.pack()
-                pack_side += 1
-            elif pack_side == 1:
-                my_checkbox.pack(side = 'left')
-                pack_side += 1
+            if my_booleans[i].get() == True:
+                checkboxes_clicked += 1
             else:
-                my_checkbox.pack(side = 'right')
-                pack_side = 0
-            my_checkboxes.append(my_checkbox)
+                checkboxes_clicked -= 1
+            print(checkboxes_clicked)
 
+
+            if checkboxes_clicked != 12:
+                print("hi")
+                pass
+            
+            else:
+                print("bye")
+                minigame_1_done == True
+                page_open -= 1
+                time_until_homework -= 6
+                minigame_1_window.withdraw()
+                window.deiconify()
+                homework_button_size()
+                update_time()
+                if time_until_homework <= 0:
+                    ending()
+
+        def checkbox_toggle(i):
+            global checkboxes_clicked
+            if my_booleans[i].get() == False:
+                my_booleans[i].set(True)
+                checkboxes_clicked += 1
+                print("x")
+                print(checkboxes_clicked)
+                print("x")
+            else:
+                my_booleans[i].set(False)
+                checkboxes_clicked -= 1
+
+        def checkbox_randomizer(i):
+            global checkboxes_clicked
+            global homework_button_width
+            global page_open
+            global homework_button_width
+            global time_until_homework
+            global window
+            global minigame_2_done
+            if i == 1:
+                checkbox_toggle(5)
+                checkbox_toggle(10)
+            print(i)
+            if i == 2:
+                checkbox_toggle(6)
+                checkbox_toggle(10)
+            if i == 3:
+                checkbox_toggle(8)
+                checkbox_toggle(2)
+            if i == 4:
+                checkbox_toggle(11)
+                checkbox_toggle(7)
+            if i == 5:
+                checkbox_toggle(0)
+            if i == 6:
+                checkbox_toggle(1)
+                checkbox_toggle(9)
+            if i == 7:
+                checkbox_toggle(2)
+            if i == 8:
+                checkbox_toggle(0)
+                checkbox_toggle(3)
+            if i == 9:
+                checkbox_toggle(4)
+                checkbox_toggle(11)
+            if i == 10:
+                checkbox_toggle(7)
+            if i == 11:
+                checkbox_toggle(4)
+                checkbox_toggle(7)
+
+            if my_booleans[i].get() == True:
+                checkboxes_clicked += 1
+            else:
+                checkboxes_clicked -= 1
+            print(checkboxes_clicked)
         
 
-    
+            if checkboxes_clicked != 12:
+                        print("hi")
+                        pass
+                    
+            else:
+                print("bye")
+                minigame_2_done == True
+                page_open -= 1
+                time_until_homework -= 6
+                minigame_2_window.withdraw()
+                window.deiconify()
+                homework_button_width -= 3
+                update_time()
+                if time_until_homework <= 0:
+                    ending()
+
     
 
+        if minigame_choice == 1:
+            #first minigame!
+            minigame_1_window = tk.Toplevel()
+            minigame_1_window.geometry('300x150')
+            minigame_1_window.title("minigame!")
+            minigame_1_done = False
+            checkboxes_clicked = 0
+            page_open += 1
+            window.withdraw()
+            
 
-    # if page_open == 0:
-    # #second minigame!
-    #     minigame_2_window = tk.Toplevel()
-    #     minigame_2_window.geometry('300x150')
-    #     minigame_2_window.title("minigame!")
-    #     minigame_2_done = False
-    #     checkboxes_clicked = 0
-    #     page_open += 1
-    #     window.withdraw()
+            for i in range(12):
+                my_booleans.append(tk.BooleanVar())
+
+
+            #minigame 1 is a bunck of check boxes you have to check
+            minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
+            minigame_label.pack()
+
+            pack_side = 0
+
+            for i in range(12):
+                my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i))
+                if pack_side == 0:
+                    my_checkbox.pack()
+                    pack_side += 1
+                elif pack_side == 1:
+                    my_checkbox.pack(side = 'left')
+                    pack_side += 1
+                else:
+                    my_checkbox.pack(side = 'right')
+                    pack_side = 0
+                my_checkboxes.append(my_checkbox)
+
+            
+
+        
         
 
-    #     for i in range(12):
-    #         my_booleans.append(tk.BooleanVar())
+
+        if minigame_choice == 2:
+        #second minigame!
+            minigame_2_window = tk.Toplevel()
+            minigame_2_window.geometry('300x150')
+            minigame_2_window.title("minigame!")
+            minigame_2_done = False
+            checkboxes_clicked = 0
+            page_open += 1
+            window.withdraw()
+            
+
+            for i in range(12):
+                my_booleans.append(tk.BooleanVar())
 
 
-    #     #minigame 1 is a bunck of check boxes you have to check
-    #     minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
-    #     (good luck)""")
-    #     minigame_label_2.pack()
+            #minigame 1 is a bunck of check boxes you have to check
+            minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
+            (good luck)""")
+            minigame_label_2.pack()
 
-    #     pack_side = 0
+            pack_side = 0
 
-    #     for i in range(12):
-    #         my_checkbox = ttk.Checkbutton(master = minigame_2_window, variable = my_booleans[i], command = lambda i=i: checkbox_randomizer(i))
-    #         if pack_side == 0:
-    #             my_checkbox.pack(side = 'left')
-    #             pack_side += 1
-    #         else:
-    #             my_checkbox.pack(side = 'right')
-    #             pack_side = 0
-    #         my_checkboxes.append(my_checkbox)
+            for i in range(12):
+                my_checkbox = ttk.Checkbutton(master = minigame_2_window, variable = my_booleans[i], command = lambda i=i: checkbox_randomizer(i))
+                if pack_side == 0:
+                    my_checkbox.pack(side = 'left')
+                    pack_side += 1
+                else:
+                    my_checkbox.pack(side = 'right')
+                    pack_side = 0
+                my_checkboxes.append(my_checkbox)
+
+            
 
         
-
-    
-    else:
-        pass
+        else:
+            pass
 
 
+def minigame_reroll():
+    global minigame_choice
+    minigame_choice = random.choice([1,2])
+    print (minigame_choice)
+minigame_reroll()
 
 
-#minigame 1
 
 
 #window
