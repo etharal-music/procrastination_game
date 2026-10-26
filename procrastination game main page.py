@@ -21,6 +21,7 @@ homework_done = 0
 ###########
 
 time_until_homework = 84
+time_until_homework_text = str(time_until_homework + "hi")
 
 #homework command
 
@@ -170,7 +171,7 @@ homework_percentage = ttk.Label(master = window, text = "")
 homework_percentage.pack()
 
 def update_time():
-    time_until_homework_label["text"] = time_until_homework
+    time_until_homework_label["text"] = time_until_homework_text
 update_time()
 
 def homework_left():
@@ -208,15 +209,21 @@ def ending():
     window.withdraw()
 
     if homework_done == 100 and time_until_homework >= 0 and time_until_homework <= 23:
-        print('nuetral')
+        print('''nuetral you got the nuetal ending
+you handed in your homework, but just in time.
+you may close the game''')
         nuetral_title = ttk.Label(text = "neutral", master = end_window)
         nuetral_title.pack()
     elif homework_done == 100 and time_until_homework == 24:
         print('good')
-        good_title = ttk.Label(text = "good", master = end_window)
+        good_title = ttk.Label(text = """you got the good ending
+good job you did everything you where meant to!
+you may close the game when you please""", master = end_window)
         good_title.pack()
     else:
-        bad_title = ttk.Label(text = "bad", master = end_window)
+        bad_title = ttk.Label(text = """you got the bad ending
+Im very dissapointed
+close the game.""", master = end_window)
         bad_title.pack()
         print("bad")
         
