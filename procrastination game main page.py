@@ -17,6 +17,7 @@ import time
 import random
 ############
 
+minigame_1_time_left = 10
 
 ############
 # this is a variable that changes the homework buttons size
@@ -104,6 +105,7 @@ def minigame():
     global minigame_1_done
     global checkboxes_clicked
     global minigame_choice
+    global minigame_1_time_left
 
     my_booleans = []
     my_checkboxes = []
@@ -114,15 +116,19 @@ def minigame():
             global checkboxes_clicked
             global page_open
             global time_until_homework
+            global minigame_reroll
+            global minigame_1_time_left
 
             if my_booleans[i].get() == True:
                 checkboxes_clicked += 1
-            else:
+            else: 
                 checkboxes_clicked -= 1
             print(checkboxes_clicked)
 
+            
 
-            if checkboxes_clicked != 12:
+
+            if checkboxes_clicked != 12 or minigame_1_time_left != 0:
                 print("hi")
                 pass
             
@@ -133,6 +139,7 @@ def minigame():
                 time_until_homework -= 6
                 minigame_1_window.withdraw()
                 window.deiconify()
+                minigame_reroll()
                 homework_button_size()
                 update_time()
                 if time_until_homework <= 0:
@@ -158,6 +165,7 @@ def minigame():
             global time_until_homework
             global window
             global minigame_2_done
+            global minigame_reroll
             if i == 1:
                 checkbox_toggle(5)
                 checkbox_toggle(10)
@@ -208,6 +216,7 @@ def minigame():
                 time_until_homework -= 6
                 minigame_2_window.withdraw()
                 window.deiconify()
+                minigame_reroll()
                 homework_button_width -= 3
                 update_time()
                 if time_until_homework <= 0:
@@ -248,6 +257,12 @@ def minigame():
                     my_checkbox.pack(side = 'right')
                     pack_side = 0
                 my_checkboxes.append(my_checkbox)
+            if minigame_1_time_left > 0:
+                minigame_1_time_left -= 1
+                print (minigame_1_time_left)
+                window.after(10, minigame)
+            else:
+                pass
 
             
 
@@ -299,6 +314,8 @@ def minigame_reroll():
     minigame_choice = random.choice([1,2])
     print (minigame_choice)
 minigame_reroll()
+
+
 
 
 
