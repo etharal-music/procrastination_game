@@ -157,13 +157,13 @@ def minigame():
             window.after(1000, countdown_minigame_1_timer)
 
         def countdown_minigame_1_timer():
-            global timer_minigame_1_label
+            #global timer_minigame_1_label
             global minigame_1_time_left
             if minigame_1_time_left > 0:
                 minigame_1_time_left -= 1
                 print (minigame_1_time_left)
                 window.after(1000, countdown_minigame_1_timer)
-                timer_minigame_1_label["text"] = str(minigame_1_time_left)
+                timer_minigame_1_label["text"] = minigame_1_time_left
             else:
                 minigame_1_ending()
 
