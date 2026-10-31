@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 
 
+timer_minigame_1_label = 0
+
 
 minigame_2_done = False
 
@@ -128,22 +130,42 @@ def minigame():
             
 
 
-            if checkboxes_clicked != 12 or minigame_1_time_left != 0:
+            if checkboxes_clicked != 12 and minigame_1_time_left != 0:
                 print("hi")
-                pass
-            
+                pass            
             else:
-                print("bye")
-                minigame_1_done == True
-                page_open -= 1
-                time_until_homework -= 6
-                minigame_1_window.withdraw()
-                window.deiconify()
-                minigame_reroll()
-                homework_button_size()
-                update_time()
-                if time_until_homework <= 0:
-                    ending()
+                minigame_1_ending()
+
+        def minigame_1_ending():
+            global page_open
+            global time_until_homework
+            print("bye")
+            minigame_1_done == True
+            page_open -= 1
+            time_until_homework -= 6
+            minigame_1_window.withdraw()
+            window.deiconify()
+            minigame_reroll()
+            homework_button_size()
+            update_time()
+            if time_until_homework <= 0:
+                ending()
+
+        #timer functions
+        def start_minigame_1_timer():
+            print ("starting timer")
+            window.after(1000, countdown_minigame_1_timer)
+
+        def countdown_minigame_1_timer():
+            global timer_minigame_1_label
+            global minigame_1_time_left
+            if minigame_1_time_left > 0:
+                minigame_1_time_left -= 1
+                print (minigame_1_time_left)
+                window.after(1000, countdown_minigame_1_timer)
+                timer_minigame_1_label["text"] = str(minigame_1_time_left)
+            else:
+                minigame_1_ending()
 
         def checkbox_toggle(i):
             global checkboxes_clicked
@@ -243,6 +265,9 @@ def minigame():
             minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
             minigame_label.pack()
 
+            timer_minigame_1_label = ttk.Label(master = minigame_1_window, text = 10)
+            timer_minigame_1_label.pack()
+
             pack_side = 0
 
             for i in range(12):
@@ -257,14 +282,9 @@ def minigame():
                     my_checkbox.pack(side = 'right')
                     pack_side = 0
                 my_checkboxes.append(my_checkbox)
-            if minigame_1_time_left > 0:
-                minigame_1_time_left -= 1
-                print (minigame_1_time_left)
-                window.after(10, minigame)
-            else:
-                pass
 
-            
+            start_minigame_1_timer()
+          
 
         
         
@@ -301,9 +321,6 @@ def minigame():
                     my_checkbox.pack(side = 'right')
                     pack_side = 0
                 my_checkboxes.append(my_checkbox)
-
-            
-
         
         else:
             pass
@@ -336,7 +353,7 @@ time_until_homework_label.pack()
 homework_percentage_label = ttk.Label(master = window, text = "percentage of homework done:")
 homework_percentage_label.pack()
 
-#label to say how much of the homeowork is complete
+#label to say how much of the homework is complete
 homework_percentage = ttk.Label(master = window, text = "")
 homework_percentage.pack()
 
@@ -346,7 +363,7 @@ update_time()
 
 def homework_left():
     homework_percentage["text"] = homework_done
-homework_left()
+homework_left()   
 
 #title
 title = ttk.Label(master = window, text = "would you like to:")
