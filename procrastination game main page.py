@@ -35,8 +35,8 @@ load_time = 200
 ############
 
 ###########
-#this variable checks if a page is open, if so it will add one and stop any other page from
-#being opened
+#this variable checks if a page is open, if so it will add one
+#and stop any other page from being opened
 page_open = 0
 ###########
 
@@ -55,7 +55,8 @@ def homework():
     global page_open
     global load_time
     global time_until_homework
-    #this check if there is another page open, if so it does not allow another to open
+    #this check if there is another page open,
+    #if so it does not allow another to open
     if page_open == 0:
         homework_window = tk.Toplevel()
         homework_window.geometry ('300x150')
@@ -73,14 +74,17 @@ def homework():
             global load_time
             global time_until_homework
             print(Progress_bar['value'])
-            #if the progres bar is not complete: add one to it and wait a second
+            #if the progres bar is not complete:
+            #add one to it and wait a second
             if Progress_bar['value'] < 100:
                 Progress_bar['value'] += 1
 
                 homework_window.after(load_time, load_bar)
             else:
-            #if the progress bar is complete, take away 6 hours from the ingame clock, allow page acess,
-            #respawn main window aswell as delete this one and make the homework 10 % done
+            #if the progress bar is complete, take away
+            #6 hours from the ingame clock, allow page acess,
+            #respawn main window aswell as delete this one and
+            #make the homework 10 % done
                 homework_done += 10
                 page_open -= 1
                 time_until_homework -= 6
@@ -128,7 +132,7 @@ def minigame():
 
             if my_booleans[i].get() == True:
                 checkboxes_clicked += 1
-            else: 
+            else:
                 checkboxes_clicked -= 1
             print(checkboxes_clicked)
 
@@ -137,7 +141,7 @@ def minigame():
 
             if checkboxes_clicked != 12 and minigame_1_time_left != 0:
                 print("hi")
-                pass            
+                pass
             else:
                 minigame_1_ending()
 
@@ -275,16 +279,20 @@ def minigame():
 
 
             #minigame 1 is a bunck of check boxes you have to check
-            minigame_label = ttk.Label(master= minigame_1_window, text= "tick all the boxes!")
+            minigame_label = ttk.Label(master= minigame_1_window,
+            text= "tick all the boxes!")
             minigame_label.pack()
 
-            timer_minigame_1_label = ttk.Label(master = minigame_1_window, text = 10)
+            timer_minigame_1_label = ttk.Label(master = minigame_1_window,
+             text = 10)
             timer_minigame_1_label.pack()
 
             pack_side = 0
 
             for i in range(12):
-                my_checkbox = ttk.Checkbutton(master = minigame_1_window, variable = my_booleans[i], command = lambda i=i: my_checkbox_clicked(i))
+                my_checkbox = ttk.Checkbutton(master = minigame_1_window,
+                 variable = my_booleans[i],
+                 command = lambda i=i: my_checkbox_clicked(i))
                 if pack_side == 0:
                     my_checkbox.pack()
                     pack_side += 1
@@ -319,7 +327,8 @@ def minigame():
 
 
             #minigame 1 is a bunck of check boxes you have to check
-            minigame_label_2 = ttk.Label(master= minigame_2_window, text= """tick all the boxes!
+            minigame_label_2 = ttk.Label(master= minigame_2_window,
+             text= """tick all the boxes!
             (good luck)""")
             minigame_label_2.pack()
 
