@@ -2,10 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 
 
+minigame_timer_active = False
+
 timer_minigame_1_label = 0
 
 
 minigame_2_done = False
+
 
 minigame_choice = ""
 
@@ -57,7 +60,7 @@ def homework():
         homework_window = tk.Toplevel()
         homework_window.geometry ('300x150')
         homework_window.title("homework")
-        page_open += 1
+        page_open = 1
         #deletes the main window for now
         window.withdraw()
         #homework progress bar
@@ -108,6 +111,7 @@ def minigame():
     global checkboxes_clicked
     global minigame_choice
     global minigame_1_time_left
+    global minigame_timer_active
 
     my_booleans = []
     my_checkboxes = []
@@ -120,6 +124,7 @@ def minigame():
             global time_until_homework
             global minigame_reroll
             global minigame_1_time_left
+            global minigame_timer_active
 
             if my_booleans[i].get() == True:
                 checkboxes_clicked += 1
@@ -139,25 +144,31 @@ def minigame():
         def minigame_1_ending():
             global page_open
             global time_until_homework
-            print("bye")
-            minigame_1_done == True
-            page_open -= 1
-            time_until_homework -= 6
-            minigame_1_window.withdraw()
-            window.deiconify()
-            minigame_reroll()
-            homework_button_size()
-            update_time()
-            if time_until_homework <= 0:
-                ending()
+            global minigame_timer_active
+            if minigame_timer_active != False:
+                print("bye")
+                minigame_1_done == True
+                page_open = 0
+                time_until_homework -= 6
+                minigame_1_window.withdraw()
+                window.deiconify()
+                minigame_reroll()
+                homework_button_size()
+                update_time()
+                minigame_timer_active = False
+                if time_until_homework <= 0:
+                    ending()
 
         #timer functions
         def start_minigame_1_timer():
+            global minigame_timer_active
+            minigame_timer_active = True
             print ("starting timer")
             window.after(1000, countdown_minigame_1_timer)
 
         def countdown_minigame_1_timer():
             #global timer_minigame_1_label
+            global minigame_timer_active
             global minigame_1_time_left
             if minigame_1_time_left > 0:
                 minigame_1_time_left -= 1
@@ -234,7 +245,8 @@ def minigame():
             else:
                 print("bye")
                 minigame_2_done == True
-                page_open -= 1
+                page_open = 0
+                print (str(page_open))
                 time_until_homework -= 6
                 minigame_2_window.withdraw()
                 window.deiconify()
@@ -248,12 +260,13 @@ def minigame():
 
         if minigame_choice == 1:
             #first minigame!
+            minigame_1_time_left = 10
             minigame_1_window = tk.Toplevel()
             minigame_1_window.geometry('300x150')
             minigame_1_window.title("minigame!")
             minigame_1_done = False
             checkboxes_clicked = 0
-            page_open += 1
+            page_open = 1
             window.withdraw()
             
 
@@ -297,7 +310,7 @@ def minigame():
             minigame_2_window.title("minigame!")
             minigame_2_done = False
             checkboxes_clicked = 0
-            page_open += 1
+            page_open = 1
             window.withdraw()
             
 
@@ -397,7 +410,7 @@ def ending():
     end_window = tk.Toplevel()
     end_window.geometry('300x150')
     end_window.title("ending")
-    page_open += 1
+    page_open = 1
     window.withdraw()
 
     if homework_done == 100 and time_until_homework >= 0 and time_until_homework <= 23:
